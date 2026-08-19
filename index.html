@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Your Next Read — @xclusivelyraingirl</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#241E19;
+    --parchment:#EAE0C9;
+    --parchment-2:#DED2B4;
+    --oxblood:#6E2A34;
+    --oxblood-dark:#511F27;
+    --gold:#AD8A3D;
+    --sage:#556449;
+    --card-bg:#F5EFDF;
+    --line:rgba(36,30,25,0.18);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--parchment);
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(36,30,25,0.06) 1px, transparent 0);
+    background-size:22px 22px;
+    color:var(--ink);
+    font-family:'Work Sans',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:48px 20px 80px;}
+
+  header{
+    text-align:center;
+    margin-bottom:44px;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--oxblood);
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Fraunces',serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(34px,7vw,54px);
+    margin:0 0 10px;
+    letter-spacing:-0.01em;
+  }
+  header p{
+    font-size:15px;
+    color:rgba(36,30,25,0.72);
+    max-width:440px;
+    margin:0 auto;
+    line-height:1.5;
+  }
+  .divider{
+    width:64px;height:2px;background:var(--gold);
+    margin:22px auto 0;
+  }
+
+  .filters{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:36px;
+  }
+  .filters button{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:7px 14px;
+    border-radius:100px;
+    cursor:pointer;
+    transition:.15s ease;
+  }
+  .filters button:hover, .filters button.active{
+    background:var(--oxblood);
+    border-color:var(--oxblood);
+    color:var(--parchment);
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:18px;
+  }
+
+  .card{
+    position:relative;
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    padding:22px 20px 20px;
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 1px 0 rgba(36,30,25,0.05);
+  }
+  /* perforated catalog-card edge */
+  .card::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;
+    height:6px;
+    background-image:radial-gradient(circle, var(--parchment) 2.5px, transparent 2.5px);
+    background-size:14px 14px;
+    background-position:6px -3px;
+  }
+
+  .cardtop{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:14px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--line);
+  }
+  .catno{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    color:rgba(36,30,25,0.5);
+    letter-spacing:.05em;
+  }
+  .genre{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    padding:3px 8px;
+    border-radius:100px;
+    background:rgba(85,100,73,0.12);
+    color:var(--sage);
+    white-space:nowrap;
+  }
+  .genre.romance{background:rgba(110,42,52,0.10);color:var(--oxblood);}
+  .genre.fantasy{background:rgba(173,138,61,0.16);color:#8a6c26;}
+  .genre.nonfic{background:rgba(85,100,73,0.12);color:var(--sage);}
+
+  .title{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:22px;
+    line-height:1.2;
+    margin:0 0 4px;
+  }
+  .author{
+    font-size:12.5px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:rgba(36,30,25,0.6);
+    margin-bottom:12px;
+  }
+  .hook{
+    font-size:13.5px;
+    line-height:1.55;
+    color:rgba(36,30,25,0.82);
+    margin-bottom:18px;
+    flex-grow:1;
+  }
+  .format-note{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    color:rgba(36,30,25,0.5);
+    margin-bottom:8px;
+  }
+
+  .buttons{
+    display:flex;
+    gap:8px;
+  }
+  .buy{
+    flex:1;
+    text-align:center;
+    text-decoration:none;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    padding:10px 8px;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    transition:.15s ease;
+    position:relative;
+  }
+  .buy.kindle{
+    background:var(--ink);
+    color:var(--parchment);
+    border-color:var(--ink);
+  }
+  .buy.kindle:hover{background:var(--oxblood-dark);border-color:var(--oxblood-dark);}
+  .buy.paperback:hover{background:var(--ink);color:var(--parchment);}
+
+  footer{
+    text-align:center;
+    margin-top:56px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    color:rgba(36,30,25,0.45);
+    letter-spacing:.04em;
+  }
+
+  @media(max-width:480px){
+    .grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Curated by @xclusivelyraingirl</div>
+    <h1>Find Your Best Buy Here</h1>
+    <p>The books everyone's talking about — picked, ranked, and ready to ship. Tap a title, choose your format, start reading tonight.</p>
+    <div class="divider"></div>
+  </header>
+
+  <div class="filters">
+    <button class="active" data-filter="all">All</button>
+    <button data-filter="romance">Romance</button>
+    <button data-filter="fantasy">Fantasy</button>
+    <button data-filter="nonfic">Non-Fiction</button>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <div class="card" data-genre="romance">
+      <div class="cardtop">
+        <span class="catno">No. 01</span>
+        <span class="genre romance">Romance</span>
+      </div>
+      <h2 class="title">Heated Rivalry</h2>
+      <div class="author">Rachel Reid</div>
+      <p class="hook">They hate each other on the ice and can't stay away from each other off it. Years of secret meetings, one impossible choice — now a hit streaming series everyone's obsessing over.</p>
+      <div class="buttons">
+        <a class="buy kindle" href="#" target="_blank" rel="noopener">Kindle</a>
+        <a class="buy paperback" href="#" target="_blank" rel="noopener">Paperback</a>
+      </div>
+    </div>
+
+    <div class="card" data-genre="fantasy">
+      <div class="cardtop">
+        <span class="catno">No. 02</span>
+        <span class="genre fantasy">Fantasy</span>
+      </div>
+      <h2 class="title">Fourth Wing</h2>
+      <div class="author">Rebecca Yarros</div>
+      <p class="hook">She was supposed to have a quiet life. Instead she's fighting for survival at the deadliest war college on the continent — where the dragons decide who's worthy, not the humans. This is where your romantasy obsession starts.</p>
+      <div class="buttons">
+        <a class="buy kindle" href="#" target="_blank" rel="noopener">Kindle</a>
+        <a class="buy paperback" href="#" target="_blank" rel="noopener">Paperback</a>
+      </div>
+    </div>
+
+    <div class="card" data-genre="fantasy">
+      <div class="cardtop">
+        <span class="catno">No. 03</span>
+        <span class="genre fantasy">Fantasy</span>
+      </div>
+      <h2 class="title">A Court of Thorns and Roses</h2>
+      <div class="author">Sarah J. Maas</div>
+      <p class="hook">One wrong move in a cursed forest and her whole life belongs to a beast, a court, and a war she never asked for. The series that made "romantasy" a household word — full series is out, so no cliffhanger waits.</p>
+      <div class="buttons">
+        <a class="buy kindle" href="#" target="_blank" rel="noopener">Kindle</a>
+        <a class="buy paperback" href="#" target="_blank" rel="noopener">Paperback</a>
+      </div>
+    </div>
+
+    <div class="card" data-genre="fantasy">
+      <div class="cardtop">
+        <span class="catno">No. 04</span>
+        <span class="genre fantasy">Fantasy</span>
+      </div>
+      <h2 class="title">Alchemised</h2>
+      <div class="author">SenLinYu</div>
+      <p class="hook">A fan-favorite story so good it sold over a million copies before most bookstores even had it in stock. Dark, twisted, and fully self-contained — no series commitment required.</p>
+      <div class="buttons">
+        <a class="buy kindle" href="#" target="_blank" rel="noopener">Kindle</a>
+        <a class="buy paperback" href="#" target="_blank" rel="noopener">Paperback</a>
+      </div>
+    </div>
+
+    <div class="card" data-genre="romance">
+      <div class="cardtop">
+        <span class="catno">No. 05</span>
+        <span class="genre romance">Romance</span>
+      </div>
+      <h2 class="title">It Ends With Us</h2>
+      <div class="author">Colleen Hoover</div>
+      <p class="hook">The love story that made an entire generation ugly-cry on public transport. If you've seen the floral cover on your feed, this is why — read it once, think about it forever.</p>
+      <div class="buttons">
+        <a class="buy kindle" href="#" target="_blank" rel="noopener">Kindle</a>
+        <a class="buy paperback" href="#" target="_blank" rel="noopener">Paperback</a>
+      </div>
+    </div>
+
+    <div class="card" data-genre="romance">
+      <div class="cardtop">
+        <span class="catno">No. 06</span>
+        <span class="genre romance">Cozy Fiction</span>
+      </div>
+      <h2 class="title">Before the Coffee Gets Cold</h2>
+      <div class="author">Toshikazu Kawaguchi</div>
+      <p class="hook">One café. One chair. One rule — you can travel back in time, but only until your coffee goes cold. The gentlest, most quietly devastating read on this list.</p>
+      <div class="buttons">
+        <a class="buy kindle" href="#" target="_blank" rel="noopener">Kindle</a>
+        <a class="buy paperback" href="#" target="_blank" rel="noopener">Paperback</a>
+      </div>
+    </div>
+
+    <div class="card" data-genre="nonfic">
+      <div class="cardtop">
+        <span class="catno">No. 07</span>
+        <span class="genre nonfic">Self-Help</span>
+      </div>
+      <h2 class="title">Atomic Habits</h2>
+      <div class="author">James Clear</div>
+      <p class="hook">You don't need more willpower — you need a better system. The book behind half the "productivity glow-up" content on your feed, in under 300 pages.</p>
+      <div class="buttons">
+        <a class="buy kindle" href="#" target="_blank" rel="noopener">Audiobook</a>
+        <a class="buy paperback" href="#" target="_blank" rel="noopener">Paperback</a>
+      </div>
+    </div>
+
+    <div class="card" data-genre="nonfic">
+      <div class="cardtop">
+        <span class="catno">No. 08</span>
+        <span class="genre nonfic">Book Club</span>
+      </div>
+      <h2 class="title">Kin</h2>
+      <div class="author">Tayari Jones</div>
+      <p class="hook">Two friends. One tragedy that pulls their whole lives back together decades later. Amazon's #1 pick of the year so far — the book club read everyone will be discussing next.</p>
+      <div class="buttons">
+        <a class="buy kindle" href="#" target="_blank" rel="noopener">Kindle</a>
+        <a class="buy paperback" href="#" target="_blank" rel="noopener">Paperback</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    As an Amazon Associate, this page earns from qualifying purchases.
+  </footer>
+
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('.filters button');
+  const cards = document.querySelectorAll('.card');
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      buttons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(c=>{
+        c.style.display = (f==='all' || c.dataset.genre===f) ? 'flex' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
